@@ -2,3 +2,8 @@
 node_modules
 .tmp
 npm-debug.log
+/SecurityApp/SecurityApp.API/obj
+/SecurityApp/SecurityApp
+/SecurityApp/.vs
+/SecurityApp/SecurityApp.API/bin/Debug/net7.0
+/.vs
