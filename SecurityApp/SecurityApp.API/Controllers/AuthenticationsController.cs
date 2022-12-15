@@ -25,6 +25,13 @@ public class AccountController : Controller
             return BadRequest("Invalid email or password.");
         }
 
+        //Check if the user is locked out
+        if (await _userManager.IsLockedOutAsync(user))
+            return BadRequest("You are locked out. Please, try again later");
+
+        //if(await _userManager.IsEmailConfirmedAsync(user))
+        //    return BadRequest("Please, confirm your email address");
+
         // Check if the user provided the correct password
         var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
         if (!result.Succeeded)
