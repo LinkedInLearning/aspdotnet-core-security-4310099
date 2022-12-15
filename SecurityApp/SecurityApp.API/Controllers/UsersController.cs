@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
 
 namespace SecurityApp.API.Controllers
@@ -14,9 +13,11 @@ namespace SecurityApp.API.Controllers
             if (string.IsNullOrEmpty(userId))
                 return BadRequest();
 
-            string sql = "SELECT * FROM users WHERE id = " + userId;
+            string sql = "SELECT * FROM users WHERE id = @userId";
             using (SqlCommand cmd = new SqlCommand(sql, new SqlConnection()))
             {
+                cmd.Parameters.AddWithValue("@userId", userId);
+
                 //Excute command in here
                 cmd.ExecuteReader();
             }
