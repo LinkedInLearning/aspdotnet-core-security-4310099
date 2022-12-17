@@ -7,3 +7,5 @@ npm-debug.log
 /SecurityApp/.vs
 /SecurityApp/SecurityApp.API/bin/Debug/net7.0
 /.vs
+/SecurityApp/SecurityApp.MVC/bin/Debug/net7.0
+/SecurityApp/SecurityApp.MVC/obj
