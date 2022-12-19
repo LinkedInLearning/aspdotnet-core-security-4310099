@@ -26,6 +26,7 @@ namespace SecurityApp.API.Controllers
 
         // POST api/<EmployeesController>
         [HttpPost]
+        [Authorize(Policy = "SuperAdminOnly")]
         public void Post([FromBody] string value)
         {
         }

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,17 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Lockout.AllowedForNewUsers = true;
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
     options.Lockout.MaxFailedAccessAttempts = 5;
+});
+
+//Configure Claims-based Authorization
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("SuperAdminOnly", policy =>
+    {
+        policy.RequireClaim(ClaimTypes.Role, "Admin");
+        policy.RequireClaim("YearsOfExperience", "10");
+        policy.RequireClaim("JoinedCompany", "2020");
+    });
 });
 
 //Add CORS 
@@ -38,6 +50,7 @@ app.UseCors(options =>
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
