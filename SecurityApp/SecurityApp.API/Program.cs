@@ -1,9 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using SecurityApp.API.Authorization;
 using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<IAuthorizationHandler, ManagerAuthorizationHandler>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -26,6 +29,11 @@ builder.Services.AddAuthorization(options =>
         policy.RequireClaim(ClaimTypes.Role, "Admin");
         policy.RequireClaim("YearsOfExperience", "10");
         policy.RequireClaim("JoinedCompany", "2020");
+    });
+
+    options.AddPolicy("HiringManager", policy =>
+    {
+        policy.AddRequirements(new SameManagerRequirement());
     });
 });
 
