@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SecurityApp.API.Controllers
 {
@@ -8,6 +9,9 @@ namespace SecurityApp.API.Controllers
     {
         // GET: api/<EmployeesController>
         [HttpGet]
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Employee")]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
